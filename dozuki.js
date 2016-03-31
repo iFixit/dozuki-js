@@ -3,9 +3,14 @@
    function Dozuki(domain, http) {
       baseUrl = "https://" + domain +  "/api/2.0/";
       this.guides = {
-         get: function(guideid) {
+         get: function(guideid, langid) {
+            var url = baseUrl + "guides/" + guideid;
+            if (langid) {
+               url += "?langid=" + langid;
+            }
+
             return http.send(
-               baseUrl + "guides/" + guideid,
+               url,
                {
                   dataType:   'json',
                   method: 'get'
