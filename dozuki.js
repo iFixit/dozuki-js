@@ -1,7 +1,7 @@
 (function (global) {
    global.Dozuki =
    function Dozuki(domain, http) {
-      baseUrl = "https://" + domain +  "/api/2.0/";
+      baseUrl = "//" + domain +  "/api/2.0/";
       this.guides = {
          get: function(guideid, langid) {
             var url = baseUrl + "guides/" + guideid;
