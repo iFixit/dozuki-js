@@ -13,7 +13,10 @@
                url,
                {
                   dataType:   'json',
-                  method: 'get'
+                  method: 'get',
+                  headers: {
+                     'X-ALLOW-HTTP': 1
+                  }
                });
          }
       }
