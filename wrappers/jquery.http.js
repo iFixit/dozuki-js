@@ -9,6 +9,6 @@ Dozuki.http.jquery = function(jQuery) {
       var params = jQuery.param(options.params);
 
       // Already returns a promise object
-      return jQuery.ajax(url + params,  jQueryOptions);
+      return jQuery.ajax(url + "?" + params,  jQueryOptions);
    };
 };
