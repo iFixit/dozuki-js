@@ -3,10 +3,11 @@
    function Dozuki(url, http) {
       baseUrl = url + "/api/2.0/";
       this.guides = {
-         get: function(guideid, langid) {
+         get: function(guideid, langid, params) {
+            params = params || {};
             var url = baseUrl + "guides/" + guideid;
             if (langid) {
-               url += "?langid=" + langid;
+               params["langid"] = langid;
             }
 
             return http.send(
@@ -16,11 +17,12 @@
                   method: 'get',
                   headers: {
                      'X-ALLOW-HTTP': 1
-                  }
+                  },
+                  params: params
                });
          }
-      }
-   }
+      };
+   };
 
    global.Dozuki.http = {};
 })(typeof window != 'undefined' ? window : module.exports);
