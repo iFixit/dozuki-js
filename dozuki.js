@@ -10,14 +10,6 @@
                params["langid"] = langid;
             }
 
-            var paramString = Object.keys(params).map(function(key) {
-               return params[key] ? key + "=" + params[key] : key;
-            }).join("&");
-
-            if (paramString) {
-               url += "?" + paramString;
-            }
-
             return http.send(
                url,
                {
@@ -25,7 +17,8 @@
                   method: 'get',
                   headers: {
                      'X-ALLOW-HTTP': 1
-                  }
+                  },
+                  params: params
                });
          }
       };
