@@ -44,6 +44,23 @@ describe('Dozuki', function(){
                }
             });
 
+            newDozuki(http).guides.get(123, 'de', {}, {
+               'X-App-Id': 'ABCD123',
+               'X-ALLOW-HTTP': 0
+            });
+
+            assert.deepEqual(http.sent.options, {
+               dataType:   'json',
+               method:     'get',
+               headers:    {
+                  'X-App-Id': 'ABCD123',
+                  'X-ALLOW-HTTP': 0
+               },
+               params:     {
+                  'langid': 'de'
+               }
+            });
+
             assert.equal(http.sent.url, domain + "/api/2.0/guides/123");
          });
       });
