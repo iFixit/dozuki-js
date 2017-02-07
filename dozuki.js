@@ -3,11 +3,16 @@
    function Dozuki(url, http) {
       baseUrl = url + "/api/2.0/";
       this.guides = {
-         get: function(guideid, langid, params) {
+         get: function(guideid, langid, params, headers) {
+            headers = headers || {};
             params = params || {};
             var url = baseUrl + "guides/" + guideid;
             if (langid) {
                params["langid"] = langid;
+            }
+
+            if (!('X-ALLOW-HTTP' in headers)) {
+               headers['X-ALLOW-HTTP'] = 1;
             }
 
             return http.send(
@@ -15,9 +20,7 @@
                {
                   dataType:   'json',
                   method: 'get',
-                  headers: {
-                     'X-ALLOW-HTTP': 1
-                  },
+                  headers: headers,
                   params: params
                });
          }
