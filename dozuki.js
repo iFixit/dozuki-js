@@ -1,10 +1,10 @@
 (function (global) {
    global.Dozuki =
-   function Dozuki(url, http) {
+   function Dozuki(url, http, headers) {
+      headers = headers || {};
       baseUrl = url + "/api/2.0/";
       this.guides = {
-         get: function(guideid, langid, params, headers) {
-            headers = headers || {};
+         get: function(guideid, langid, params) {
             params = params || {};
             var url = baseUrl + "guides/" + guideid;
             if (langid) {

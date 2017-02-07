@@ -8,7 +8,10 @@ var domain = "https://www.test.com";
 
 describe('Dozuki', function(){
    function newDozuki(httpMock) {
-      return new Dozuki(domain, httpMock)
+      return new Dozuki(domain, httpMock, {
+         'X-App-Id': 'ABCD123',
+         'X-ALLOW-HTTP': 0
+      })
    }
    describe('guides', function() {
       describe('get', function() {
@@ -28,26 +31,7 @@ describe('Dozuki', function(){
 
          it("should set the correct request options", function() {
             var http = Dozuki.http.mock("123");
-            newDozuki(http).guides.get(123, 'en', {}, {
-               'X-App-Id': 'ABCD123'
-            });
-
-            assert.deepEqual(http.sent.options, {
-               dataType:   'json',
-               method:     'get',
-               headers:    {
-                  'X-App-Id': 'ABCD123',
-                  'X-ALLOW-HTTP': 1
-               },
-               params:     {
-                  'langid': 'en'
-               }
-            });
-
-            newDozuki(http).guides.get(123, 'de', {}, {
-               'X-App-Id': 'ABCD123',
-               'X-ALLOW-HTTP': 0
-            });
+            newDozuki(http).guides.get(123, 'en');
 
             assert.deepEqual(http.sent.options, {
                dataType:   'json',
@@ -57,7 +41,7 @@ describe('Dozuki', function(){
                   'X-ALLOW-HTTP': 0
                },
                params:     {
-                  'langid': 'de'
+                  'langid': 'en'
                }
             });
 
