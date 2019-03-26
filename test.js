@@ -4,11 +4,14 @@ Dozuki.http = {
    mock: require('./wrappers/mock.http.js').mock
 };
 
-var domain = "www.test.com";
+var domain = "https://www.test.com";
 
 describe('Dozuki', function(){
    function newDozuki(httpMock) {
-      return new Dozuki(domain, httpMock)
+      return new Dozuki(domain, httpMock, {
+         'X-App-Id': 'ABCD123',
+         'X-ALLOW-HTTP': 0
+      })
    }
    describe('guides', function() {
       describe('get', function() {
@@ -18,7 +21,7 @@ describe('Dozuki', function(){
             var promise = d.guides.get(123);
 
             assert(promise.then);
-            assert.equal(http.sent.url, "https://" + domain + "/api/2.0/guides/123");
+            assert.equal(http.sent.url, domain + "/api/2.0/guides/123");
 
             promise.then(function(data) {
                assert.equal("123", data);
@@ -28,14 +31,21 @@ describe('Dozuki', function(){
 
          it("should set the correct request options", function() {
             var http = Dozuki.http.mock("123");
-            newDozuki(http).guides.get(123);
+            newDozuki(http).guides.get(123, 'en');
 
             assert.deepEqual(http.sent.options, {
                dataType:   'json',
-               method:     'get'
+               method:     'get',
+               headers:    {
+                  'X-App-Id': 'ABCD123',
+                  'X-ALLOW-HTTP': 0
+               },
+               params:     {
+                  'langid': 'en'
+               }
             });
 
-            assert.equal(http.sent.url, "https://" + domain + "/api/2.0/guides/123");
+            assert.equal(http.sent.url, domain + "/api/2.0/guides/123");
          });
       });
    });

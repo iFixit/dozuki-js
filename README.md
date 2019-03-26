@@ -20,7 +20,7 @@ dozuki.guides.get(1234).then(function(guide) {
 ### Dozuki.guides
 An object exposing methods on the guide collection.
 
-#### Dozuki.guides.get(guideid)
+#### Dozuki.guides.get(guideid, [langid, params, headers])
 return a promise that will be fulfilled with a [JSON object directly from the
 API](https://www.ifixit.com/api/2.0/doc/Guides#get-a-guide)
 
@@ -29,7 +29,7 @@ A mock module (`Dozuki.http.mock`) and a jQuery module (`Dozuki.http.mock`) are
 provided to give Dozuki a way to make requests. It's pretty trivial make a new
 module for any given HTTP library.
 
-An http module only needs to have one method, `send(url, options)` 
+An http module only needs to have one method, `send(url, options)`
 the `options` object must support these attributes.
 
     data:       Object containing key:value mappings to send with the request
@@ -38,3 +38,9 @@ the `options` object must support these attributes.
     method:     HTTP Method to use for the request: get, post, patch, ...
 
 
+## Building & Running Tests
+
+```
+npm install
+npm test
+```
